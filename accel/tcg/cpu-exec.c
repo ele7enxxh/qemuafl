@@ -362,6 +362,19 @@ void afl_setup(void) {
     afl_end_code = (abi_ulong)-1;
 
   }
+    
+  if (getenv("AFL_CODE_LIBRARY")) {
+    GSList *maps, *iter;
+    maps = read_self_maps();
+    for (iter = maps; iter; iter = g_slist_next(iter)) {
+      MapInfo *e = (MapInfo *) iter->data;
+      if (e->is_exec && strstr(e->path, getenv("AFL_CODE_LIBRARY"))) {
+        afl_start_code = e->start;
+        afl_end_code = e->end;
+      }
+    }
+    free_self_maps(maps);
+  }
   
   if (getenv("AFL_CODE_START"))
     afl_start_code = strtoll(getenv("AFL_CODE_START"), NULL, 16);
