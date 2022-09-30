@@ -631,3 +631,10 @@ STRUCT(usbdevfs_disconnect_claim,
         TYPE_INT, /* flags */
         MK_ARRAY(TYPE_CHAR, USBDEVFS_MAXDRIVERNAME + 1)) /* driver */
 #endif /* CONFIG_USBFS */
+    
+STRUCT(dma_heap_allocation_data,
+       TYPE_LONG, /* len */
+       TYPE_INT, /* fd */
+       TYPE_INT, /* fd_flags */
+       TYPE_LONG) /* heap_flags */
+
