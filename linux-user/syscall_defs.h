@@ -2931,4 +2931,14 @@ struct target_statx {
    /* 0x100 */
 };
 
+struct dma_heap_allocation_data {
+  uint64_t len;
+  uint32_t fd;
+  uint32_t fd_flags;
+  uint64_t heap_flags;
+};
+#define DMA_HEAP_IOC_MAGIC 'H'
+#define DMA_HEAP_IOCTL_ALLOC _IOWR(DMA_HEAP_IOC_MAGIC, 0x0, struct dma_heap_allocation_data)
+#define TARGET_DMA_HEAP_IOCTL_ALLOC TARGET_IOWR(DMA_HEAP_IOC_MAGIC, 0, struct dma_heap_allocation_data)
+
 #endif
